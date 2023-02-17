@@ -17,7 +17,7 @@
 				<input type="submit" value="SEARCH">
 			</form>
 		</div>
-		<div class="col-6 text-end">Crea un anuova pizza <a href="pizze/create"  class="btn btn-primary">Crea</a></div>
+		<div class="col-6 text-end">Crea una nuova pizza <a href="pizze/create"  class="btn btn-primary">Crea</a></div>
 	</div>
 	<table th:if="${elencoPizze.size()>0}" class="text-center   table table-success table-striped">
 		<tr>
@@ -25,9 +25,10 @@
 			<th class="col-3">Descrizione</th> 
 			<th class="col-3">Foto</th>
 			<th class="col-3">Prezzo</th>
+			<th class="col-3">button</th>
 		</tr>
 	
-		<tr th:each = "elencopizza : ${elencoPizze}" th:object="${elencopizza}">
+		<tr  th:each = "elencopizza : ${elencoPizze}" th:object="${elencopizza}">
 			<td ><a th:text = "*{name}" th:href="'pizze/'+*{id}"></td>
 			<td  th:text = "*{description}"></td>
 			<td >
@@ -35,6 +36,12 @@
 				<img alt="logo" th:src="@{/img/logo.png}" class="w-50" th:if="*{photo.isEmpty()}">
 			</td>
 			<td  th:text = "*{price} + '€'"></td>
+			<td >
+				<a th:href="'pizze/edit/' + *{id}"  class="btn btn-primary">Modifica</a>
+				<form action="#" th:action="@{'pizze/delete/' + *{id}}" method="post" class="mt-2">
+					<button type="submite" class="btn btn-danger">Elimina</button>
+				</form>
+			</td>
 		</tr>
 	</table>
 	<h3 th:if="${elencoPizze.size()==0}" class="text-center">Non ci sono pizze al momento</h3>
